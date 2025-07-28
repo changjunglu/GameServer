@@ -4,7 +4,7 @@ import './App.css';
 
 // 伺服器 URL - 本地開發或生產環境
 const SERVER_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://your-railway-app.railway.app' // 請替換成您的 Railway 網址
+  ? 'https://gameserver-production-ddf0.up.railway.app' // Railway 生產環境網址
   : 'http://localhost:3001';
 
 function App() {

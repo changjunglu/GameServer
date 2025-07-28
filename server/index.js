@@ -8,9 +8,14 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: process.env.NODE_ENV === 'production' 
-      ? ["https://your-netlify-app.netlify.app"] // 請替換成您的 Netlify 網址
+      ? [
+          "https://your-netlify-app.netlify.app", // 請替換為您的 Netlify 網址
+          "https://*.netlify.app", // 允許所有 Netlify 子網域
+          process.env.FRONTEND_URL // 如果設定了環境變數
+        ].filter(Boolean)
       : ["http://localhost:3000"],
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
