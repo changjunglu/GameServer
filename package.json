@@ -2,14 +2,15 @@
   "name": "game-server",
   "version": "1.0.0",
   "description": "簡單的遊戲伺服器，測試 Socket.IO 和狀態同步",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "server:dev": "cd server && npm run dev",
     "client:dev": "cd client && npm start",
     "install:all": "npm install && cd server && npm install && cd ../client && npm install",
-    "build": "cd client && npm run build",
-    "start": "cd server && npm start"
+    "build": "node deploy-server.js",
+    "start": "cd server && npm start",
+    "deploy:server": "cd server && npm install && npm start"
   },
   "keywords": ["game", "socket.io", "real-time"],
   "author": "",
