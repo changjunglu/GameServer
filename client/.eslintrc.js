@@ -5,7 +5,7 @@ module.exports = {
   ],
   rules: {
     'no-unused-vars': 'error',
-    'no-console': 'warn',
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'prefer-const': 'error',
     'no-var': 'error'
   }

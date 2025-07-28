@@ -2,6 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import './App.css';
 
+// 開發環境的日誌函數
+const log = (message, data) => {
+  if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
+    console.log(message, data);
+  }
+};
+
 // 伺服器 URL - 本地開發或生產環境
 const SERVER_URL = process.env.NODE_ENV === 'production' 
   ? 'https://gameserver-production-ddf0.up.railway.app' // Railway 生產環境網址
@@ -24,23 +32,23 @@ function App() {
 
     // 連接事件
     newSocket.on('connect', () => {
-      // console.log('已連接到伺服器');
+      log('已連接到伺服器');
       setConnected(true);
     });
 
     newSocket.on('disconnect', () => {
-      // console.log('與伺服器斷線');
+      log('與伺服器斷線');
       setConnected(false);
     });
 
     // 遊戲事件
     newSocket.on('player-joined', (player) => {
-      // console.log('新玩家加入:', player);
+      log('新玩家加入:', player);
       setPlayers(prev => ({ ...prev, [player.id]: player }));
     });
 
     newSocket.on('player-left', (playerId) => {
-      // console.log('玩家離開:', playerId);
+      log('玩家離開:', playerId);
       setPlayers(prev => {
         const newPlayers = { ...prev };
         delete newPlayers[playerId];
