@@ -15,7 +15,6 @@ function App() {
   const [players, setPlayers] = useState({});
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [myPosition, setMyPosition] = useState({ x: 0, y: 0 });
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -102,7 +101,6 @@ function App() {
     const y = e.clientY - rect.top;
     
     const newPos = { x, y };
-    setMyPosition(newPos);
     
     if (socket) {
       socket.emit('player-move', newPos);
