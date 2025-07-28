@@ -53,22 +53,39 @@ npm run client:dev  # 前端 (port 3000)
 
 ## 部署
 
-### 前端部署到 Netlify
-
-1. 將 `client` 資料夾推送到 GitHub
-2. 在 Netlify 中連接 GitHub 倉庫
-3. 設定建置指令：`npm run build`
-4. 設定發布資料夾：`build`
-5. 部署後，更新 `client/src/App.js` 中的 `SERVER_URL` 為您的 Railway 網址
-
 ### 後端部署到 Railway
 
-1. 將 `server` 資料夾推送到 GitHub
+**重要**: 請參考 `RAILWAY_DEPLOYMENT.md` 獲取詳細的部署指南。
+
+#### 快速部署步驟：
+1. 將整個專案推送到 GitHub
 2. 在 Railway 中連接 GitHub 倉庫
-3. 設定環境變數：
-   - `NODE_ENV=production`
-   - `PORT` (Railway 會自動設定)
-4. 部署後，更新前端的 `SERVER_URL` 為 Railway 提供的網址
+3. **關鍵設定**:
+   - **Root Directory**: `server`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+4. 設定環境變數：`NODE_ENV=production`
+5. 部署後獲取 Railway 網址
+
+### 前端部署到 Netlify
+
+1. 將整個專案推送到 GitHub
+2. 在 Netlify 中連接 GitHub 倉庫
+3. 設定部署選項：
+   - **Base directory**: `client`
+   - **Build command**: `npm run build`
+   - **Publish directory**: `build`
+4. 部署後，更新 `client/src/App.js` 中的 `SERVER_URL` 為您的 Railway 網址
+
+### 驗證部署
+
+```bash
+# 測試後端
+curl https://your-railway-app.railway.app/health
+
+# 測試前端
+# 訪問您的 Netlify 網址
+```
 
 ## 環境變數
 
