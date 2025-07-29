@@ -2,190 +2,541 @@
   min-height: 100vh;
   padding: 20px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.loading {
+/* 登入界面 */
+.login-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  color: white;
-  text-align: center;
 }
 
-.join-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  color: white;
+.login-form {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   text-align: center;
+  max-width: 400px;
+  width: 100%;
 }
 
-.join-form h1 {
+.login-form h1 {
   margin-bottom: 20px;
   font-size: 2.5rem;
+  color: #2c3e50;
 }
 
-.join-form input {
-  padding: 12px 20px;
+.login-form p {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.login-input {
+  padding: 15px 20px;
   font-size: 16px;
-  border: none;
+  border: 2px solid #e1e8ed;
   border-radius: 25px;
   margin-bottom: 20px;
-  width: 300px;
-  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
 }
 
-.join-form button {
-  padding: 12px 30px;
+.login-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.login-button {
+  padding: 15px 30px;
   font-size: 16px;
-  background: #4CAF50;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   border-radius: 25px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s;
+  width: 100%;
 }
 
-.join-form button:hover {
-  background: #45a049;
+.login-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.join-form button:disabled {
+.login-button:disabled {
   background: #cccccc;
   cursor: not-allowed;
+  transform: none;
 }
 
-.game-container {
-  max-width: 1200px;
+.connection-status {
+  margin-top: 20px;
+  color: #e74c3c;
+  font-size: 14px;
+}
+
+/* 大廳界面 */
+.lobby-container {
+  max-width: 1400px;
   margin: 0 auto;
   background: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
 }
 
-.game-header {
-  background: #2c3e50;
+.lobby-header {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
   color: white;
-  padding: 20px;
+  padding: 20px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.game-header h2 {
+.lobby-header h1 {
   margin: 0;
+  font-size: 2rem;
 }
 
-.status {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-.game-content {
+.lobby-status {
   display: flex;
-  height: 600px;
+  gap: 20px;
+  font-size: 14px;
+  opacity: 0.9;
 }
 
-.game-area {
-  flex: 2;
-  padding: 20px;
+.lobby-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.lobby-chat {
+  width: 33.333%;
+  background: white;
+  border-right: 1px solid #e1e8ed;
   display: flex;
   flex-direction: column;
+}
+
+.lobby-sidebar {
+  flex: 1;
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.player-list-section,
+.room-list-section {
+  padding: 20px;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.player-list-section h3,
+.room-list-section h3 {
+  margin: 0 0 15px 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.player-list,
+.room-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.player-item {
+  background: white;
+  padding: 12px 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-.game-canvas {
-  border: 2px solid #ddd;
+.player-name {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.player-status {
+  font-size: 12px;
+  color: #27ae60;
+  background: #e8f5e8;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.create-room-button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+  color: white;
+  border: none;
   border-radius: 10px;
-  cursor: crosshair;
-  background: #f8f9fa;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 15px;
+  transition: all 0.3s;
 }
 
-.instructions {
-  margin-top: 10px;
-  color: #666;
-  font-size: 14px;
+.create-room-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
 }
 
-.chat-area {
+.room-item {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.room-info {
   flex: 1;
-  border-left: 1px solid #ddd;
+}
+
+.room-info h4 {
+  margin: 0 0 5px 0;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.room-info p {
+  margin: 2px 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.join-room-button {
+  padding: 8px 15px;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s;
+}
+
+.join-room-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+}
+
+.join-room-button:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 聊天區域 */
+.lobby-chat {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  background: white;
+}
+
+.lobby-chat h3 {
+  margin: 0;
+  padding: 20px 30px 15px;
+  color: #2c3e50;
+  border-bottom: 1px solid #e1e8ed;
 }
 
 .chat-messages {
   flex: 1;
-  padding: 20px;
+  padding: 20px 30px;
   overflow-y: auto;
-  background: #f8f9fa;
+  background: #fafbfc;
 }
 
 .message {
-  margin-bottom: 10px;
-  padding: 8px 12px;
+  margin-bottom: 15px;
+  padding: 12px 15px;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.player-name {
-  font-weight: bold;
+.message .player-name {
+  font-weight: 600;
+  color: #667eea;
+  font-size: 14px;
+}
+
+.message .message-text {
   color: #2c3e50;
-  margin-right: 8px;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
-.message-text {
-  color: #333;
+.message .message-time {
+  font-size: 11px;
+  color: #95a5a6;
+  align-self: flex-end;
 }
 
 .chat-input {
-  padding: 20px;
-  border-top: 1px solid #ddd;
+  padding: 20px 30px;
+  border-top: 1px solid #e1e8ed;
   display: flex;
-  gap: 10px;
+  gap: 15px;
+  background: white;
 }
 
 .chat-input input {
   flex: 1;
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
+  padding: 12px 20px;
+  border: 2px solid #e1e8ed;
+  border-radius: 25px;
   font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.chat-input input:focus {
+  outline: none;
+  border-color: #667eea;
 }
 
 .chat-input button {
-  padding: 10px 20px;
-  background: #3498db;
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 25px;
   cursor: pointer;
-  transition: background 0.3s;
+  font-weight: 500;
+  transition: all 0.3s;
 }
 
 .chat-input button:hover {
-  background: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
 }
 
+/* 房間界面 */
+.room-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+}
+
+.room-header {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.room-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.room-info {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.leave-room-button {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.leave-room-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.room-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.room-players {
+  width: 300px;
+  background: #f8f9fa;
+  border-right: 1px solid #e1e8ed;
+  padding: 20px;
+}
+
+.room-players h3 {
+  margin: 0 0 15px 0;
+  color: #2c3e50;
+}
+
+.room-chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.room-chat h3 {
+  margin: 0;
+  padding: 20px 30px 15px;
+  color: #2c3e50;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+/* 模態框 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal h3 {
+  margin: 0 0 20px 0;
+  color: #2c3e50;
+}
+
+.modal input,
+.modal select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e1e8ed;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.modal input:focus,
+.modal select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.modal-buttons button:first-child {
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+  color: white;
+}
+
+.modal-buttons button:last-child {
+  background: #e74c3c;
+  color: white;
+}
+
+.modal-buttons button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-buttons button:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 響應式設計 */
 @media (max-width: 768px) {
-  .game-content {
+  .lobby-content {
     flex-direction: column;
-    height: auto;
   }
   
-  .game-canvas {
+  .lobby-chat {
     width: 100%;
-    height: 300px;
+    max-height: 300px;
   }
   
-  .chat-area {
-    border-left: none;
-    border-top: 1px solid #ddd;
+  .lobby-sidebar {
+    width: 100%;
+  }
+  
+  .room-content {
+    flex-direction: column;
+  }
+  
+  .room-players {
+    width: 100%;
+    max-height: 200px;
+  }
+  
+  .lobby-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .lobby-status {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .room-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .room-info {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 } 
