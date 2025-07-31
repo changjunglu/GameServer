@@ -12,10 +12,15 @@
     "start": "cd server && npm start",
     "deploy:server": "cd server && npm install && npm start"
   },
-  "keywords": ["game", "socket.io", "real-time"],
+  "keywords": [
+    "game",
+    "socket.io",
+    "real-time"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "socket.io-client": "^4.8.1"
   }
-} 
+}

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端聊天測試</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .chat-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px 0;
+            height: 400px;
+            overflow-y: auto;
+        }
+        .chat-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+        }
+        .chat-input button {
+            padding: 10px 20px;
+        }
+        .message {
+            margin: 5px 0;
+            padding: 5px;
+            background: #f0f0f0;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            background: #e8f5e8;
+        }
+        .error {
+            background: #ffe8e8;
+        }
+    </style>
+</head>
+<body>
+    <h1>前端聊天測試</h1>
+    
+    <div class="status" id="status">未連接</div>
+    
+    <div>
+        <input type="text" id="playerName" placeholder="輸入玩家名稱" value="測試玩家">
+        <button onclick="login()">登入</button>
+        <button onclick="createRoom()">創建房間</button>
+        <button onclick="sendChat()">發送聊天</button>
+        <button onclick="clearChat()">清空聊天</button>
+    </div>
+    
+    <div class="chat-container" id="chatContainer">
+        <div>等待連接...</div>
+    </div>
+    
+    <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="輸入聊天訊息" onkeypress="handleKeyPress(event)">
+        <button onclick="sendChat()">發送</button>
+    </div>
+    
+    <div>
+        <h3>測試結果</h3>
+        <div id="testResults"></div>
+    </div>
+
+    <script>
+        let socket = null;
+        let playerName = '';
+        let currentRoom = null;
+        let chatCount = 0;
+        let testResults = [];
+
+        function connect() {
+            socket = io('http://localhost:3001');
+            
+            socket.on('connect', () => {
+                updateStatus('已連接', false);
+            });
+            
+            socket.on('disconnect', () => {
+                updateStatus('已斷開連接', true);
+            });
+            
+            socket.on('player-logged-in', (data) => {
+                updateStatus(`已登入: ${data.player.name}`, false);
+                playerName = data.player.name;
+            });
+            
+            socket.on('room-created', (room) => {
+                updateStatus(`已創建房間: ${room.name}`, false);
+                currentRoom = room;
+            });
+            
+            socket.on('room-new-message', (message) => {
+                addMessage(`${message.playerName}: ${message.message}`);
+            });
+        }
+
+        function updateStatus(message, isError = false) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = isError ? 'status error' : 'status';
+        }
+
+        function addMessage(message) {
+            const container = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.textContent = message;
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function login() {
+            if (!socket) {
+                connect();
+            }
+            
+            const name = document.getElementById('playerName').value;
+            if (name.trim()) {
+                socket.emit('player-login', name);
+            }
+        }
+
+        function createRoom() {
+            if (socket && playerName) {
+                socket.emit('create-room', {
+                    name: '前端聊天測試房間',
+                    maxPlayers: 4,
+                    gameType: 'fruit-eating',
+                    gameDuration: 10
+                });
+            }
+        }
+
+        function sendChat() {
+            if (socket && currentRoom) {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                
+                if (message) {
+                    chatCount++;
+                    addTestResult(`發送第${chatCount}次聊天: ${message}`);
+                    
+                    socket.emit('room-chat', message);
+                    input.value = '';
+                    
+                    // 檢查是否達到6次限制
+                    if (chatCount === 6) {
+                        addTestResult('⚠️ 已發送6次聊天，檢查是否還能繼續...');
+                    }
+                }
+            } else {
+                addTestResult('❌ 無法發送聊天：未連接或未在房間中');
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendChat();
+            }
+        }
+
+        function clearChat() {
+            const container = document.getElementById('chatContainer');
+            container.innerHTML = '<div>聊天記錄已清空</div>';
+        }
+
+        function addTestResult(result) {
+            const resultsDiv = document.getElementById('testResults');
+            const resultDiv = document.createElement('div');
+            resultDiv.textContent = `${new Date().toLocaleTimeString()}: ${result}`;
+            resultsDiv.appendChild(resultDiv);
+        }
+
+        // 自動測試
+        function autoTest() {
+            addTestResult('🧪 開始自動測試...');
+            
+            // 登入
+            setTimeout(() => {
+                login();
+                addTestResult('1. 嘗試登入');
+            }, 1000);
+            
+            // 創建房間
+            setTimeout(() => {
+                createRoom();
+                addTestResult('2. 嘗試創建房間');
+            }, 2000);
+            
+            // 發送6次聊天
+            for (let i = 1; i <= 6; i++) {
+                setTimeout(() => {
+                    document.getElementById('chatInput').value = `自動測試${i}`;
+                    sendChat();
+                }, 3000 + i * 1000);
+            }
+            
+            // 發送第7次聊天
+            setTimeout(() => {
+                document.getElementById('chatInput').value = '第7次測試';
+                sendChat();
+                addTestResult('3. 嘗試發送第7次聊天');
+            }, 10000);
+            
+            // 發送第8次聊天
+            setTimeout(() => {
+                document.getElementById('chatInput').value = '第8次測試';
+                sendChat();
+                addTestResult('4. 嘗試發送第8次聊天');
+            }, 12000);
+            
+            // 結束測試
+            setTimeout(() => {
+                addTestResult('🎉 自動測試完成！');
+            }, 14000);
+        }
+
+        // 頁面載入時自動開始測試
+        window.onload = function() {
+            setTimeout(autoTest, 1000);
+        };
+    </script>
+</body>
+</html> 
