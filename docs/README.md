@@ -38,17 +38,17 @@ npm run deploy:server
 專案包含以下測試檔案：
 
 ### 核心測試
-- `integration-test.js` - 完整整合測試
-- `multiplayer-game-test.js` - 多人遊戲測試
-- `snake-game-test.js` - 貪食蛇遊戲測試
+- `scripts/test/integration-test.js` - 完整整合測試
+- `scripts/test/multiplayer-game-test.js` - 多人遊戲測試
+- `scripts/test/snake-game-test.js` - 貪食蛇遊戲測試
 
 ### 功能測試
-- `chat-test.html` - 聊天功能測試頁面
-- `deployment-test.js` - 部署測試
-- `check-deployment.js` - 部署檢查
+- `scripts/tools/chat-test.html` - 聊天功能測試頁面
+- `scripts/deployment/deployment-test.js` - 部署測試
+- `scripts/deployment/check-deployment.js` - 部署檢查
 
 ### 部署相關
-- `deploy-server.js` - 伺服器部署腳本
+- `scripts/deployment/deploy-server.js` - 伺服器部署腳本
 
 ## 專案結構
 

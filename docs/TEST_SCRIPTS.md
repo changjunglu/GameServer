@@ -2,7 +2,7 @@
 
 ## 核心測試
 
-### `integration-test.js`
+### `scripts/test/integration-test.js`
 完整整合測試，包含：
 - 玩家登入/登出
 - 房間創建/加入/離開
@@ -12,10 +12,10 @@
 
 **使用方法：**
 ```bash
-node integration-test.js
+node scripts/test/integration-test.js
 ```
 
-### `multiplayer-game-test.js`
+### `scripts/test/multiplayer-game-test.js`
 多人遊戲測試，專注於：
 - 多人房間管理
 - 玩家同步
@@ -23,10 +23,10 @@ node integration-test.js
 
 **使用方法：**
 ```bash
-node multiplayer-game-test.js
+node scripts/test/multiplayer-game-test.js
 ```
 
-### `snake-game-test.js`
+### `scripts/test/snake-game-test.js`
 貪食蛇遊戲測試，包含：
 - 遊戲邏輯測試
 - 移動控制
@@ -35,23 +35,23 @@ node multiplayer-game-test.js
 
 **使用方法：**
 ```bash
-node snake-game-test.js
+node scripts/test/snake-game-test.js
 ```
 
 ## 功能測試
 
-### `chat-test.html`
+### `scripts/tools/chat-test.html`
 聊天功能測試頁面，用於：
 - 測試聊天輸入框
 - 驗證聊天訊息發送
 - 檢查聊天記錄顯示
 
 **使用方法：**
-在瀏覽器中打開 `chat-test.html`
+在瀏覽器中打開 `scripts/tools/chat-test.html`
 
 ## 部署測試
 
-### `deployment-test.js`
+### `scripts/deployment/deployment-test.js`
 部署環境測試，檢查：
 - 伺服器連接
 - 環境變數
@@ -59,10 +59,10 @@ node snake-game-test.js
 
 **使用方法：**
 ```bash
-node deployment-test.js
+node scripts/deployment/deployment-test.js
 ```
 
-### `check-deployment.js`
+### `scripts/deployment/check-deployment.js`
 快速部署檢查，驗證：
 - Railway 部署狀態
 - 伺服器響應
@@ -70,12 +70,12 @@ node deployment-test.js
 
 **使用方法：**
 ```bash
-node check-deployment.js
+node scripts/deployment/check-deployment.js
 ```
 
 ## 部署腳本
 
-### `deploy-server.js`
+### `scripts/deployment/deploy-server.js`
 伺服器部署腳本，用於：
 - 自動部署到 Railway
 - 環境配置
@@ -83,16 +83,16 @@ node check-deployment.js
 
 **使用方法：**
 ```bash
-node deploy-server.js
+node scripts/deployment/deploy-server.js
 ```
 
 ## 測試建議
 
-1. **開發階段**：使用 `integration-test.js` 進行完整測試
-2. **功能測試**：使用 `chat-test.html` 測試聊天功能
-3. **遊戲測試**：使用 `snake-game-test.js` 測試遊戲邏輯
-4. **部署前**：使用 `deployment-test.js` 驗證部署環境
-5. **部署後**：使用 `check-deployment.js` 快速檢查
+1. **開發階段**：使用 `scripts/test/integration-test.js` 進行完整測試
+2. **功能測試**：使用 `scripts/tools/chat-test.html` 測試聊天功能
+3. **遊戲測試**：使用 `scripts/test/snake-game-test.js` 測試遊戲邏輯
+4. **部署前**：使用 `scripts/deployment/deployment-test.js` 驗證部署環境
+5. **部署後**：使用 `scripts/deployment/check-deployment.js` 快速檢查
 
 ## 注意事項
 
