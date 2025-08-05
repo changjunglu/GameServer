@@ -41,7 +41,7 @@ function App() {
   const canvasRef = useRef(null);
   const chatMessagesRef = useRef(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line
   useEffect(() => {
     // 建立 Socket.IO 連接
     const newSocket = io(SERVER_URL);
