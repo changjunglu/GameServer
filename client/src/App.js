@@ -41,6 +41,7 @@ function App() {
   const canvasRef = useRef(null);
   const chatMessagesRef = useRef(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     // 建立 Socket.IO 連接
     const newSocket = io(SERVER_URL);
@@ -244,7 +245,7 @@ function App() {
     if (chatMessagesRef.current) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
     }
-  }, [roomChat, lobbyChat]);
+  }, [roomChat, lobbyChat, gameData]);
 
   const handleLogin = () => {
     if (playerName.trim() && socket) {
@@ -257,7 +258,7 @@ function App() {
     }
   };
 
-  const handleSendChat = () => {
+  const handleSendChat = useCallback(() => {
     if (newChatMessage.trim() && socket) {
       if (currentView === 'room') {
         // 房間聊天
@@ -268,7 +269,7 @@ function App() {
       }
       setNewChatMessage('');
     }
-  };
+  }, [newChatMessage, socket, currentView]);
 
   const handleCreateRoom = () => {
     if (socket && newRoomData.name.trim()) {
@@ -391,7 +392,7 @@ function App() {
       const interval = setInterval(gameLoop, 100); // 10 FPS
       return () => clearInterval(interval);
     }
-  }, [gameLoop, gameStarted, gameData]);
+  }, [gameLoop, gameStarted]);
 
   // 倒計時
   useEffect(() => {
