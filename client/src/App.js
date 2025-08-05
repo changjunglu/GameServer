@@ -145,7 +145,7 @@ function App() {
     // 遊戲事件
     const handleGameStarted = (data) => {
       log('遊戲開始:', data);
-      console.log('🎮 收到遊戲開始通知:', {
+      log('🎮 收到遊戲開始通知:', {
         roomStatus: data.room.status,
         playerCount: Object.keys(data.room.players).length,
         gameDataExists: !!data.gameData,
@@ -163,7 +163,7 @@ function App() {
 
     const handleGameEnded = (data) => {
       log('遊戲結束:', data);
-      console.log('🎯 遊戲結束處理:', {
+      log('🎯 遊戲結束處理:', {
         roomStatus: data.room.status,
         gameStarted: false,
         roomId: data.room.id
@@ -391,7 +391,7 @@ function App() {
       const interval = setInterval(gameLoop, 100); // 10 FPS
       return () => clearInterval(interval);
     }
-  }, [gameLoop, gameStarted]);
+  }, [gameLoop, gameStarted, gameData]);
 
   // 倒計時
   useEffect(() => {
@@ -425,7 +425,7 @@ function App() {
     if (e.key === 'Enter') {
       handleSendChat();
     }
-  }, []);
+  }, [handleSendChat]);
 
   // 鍵盤控制
   const handleKeyDown = useCallback((e) => {
