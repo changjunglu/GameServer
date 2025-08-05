@@ -235,12 +235,11 @@ function App() {
     };
   }, []); // 空依賴項，確保只註冊一次
 
-  // 更新 currentRoomRef
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     currentRoomRef.current = currentRoom;
   }, [currentRoom]);
 
-  // 自動滾動聊天記錄到底部
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (chatMessagesRef.current) {
@@ -387,7 +386,7 @@ function App() {
     });
   }, [gameStarted, gameData, currentPlayer]);
 
-  // 遊戲循環
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (gameStarted) {
       const interval = setInterval(gameLoop, 100); // 10 FPS
@@ -395,7 +394,7 @@ function App() {
     }
   }, [gameLoop, gameStarted]);
 
-  // 倒計時
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (gameStarted && gameTime > 0) {
       const timer = setInterval(() => {
@@ -414,7 +413,7 @@ function App() {
     }
   }, [gameStarted, gameTime, socket]);
 
-  // 遊戲開始時設置正確的倒計時
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (gameStarted && currentRoom) {
       setGameTime(currentRoom.gameDuration || 60);
@@ -456,6 +455,7 @@ function App() {
   }, [gameStarted, currentPlayer, handleGameAction]);
 
   // 添加鍵盤事件監聽
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (gameStarted) {
       document.addEventListener('keydown', handleKeyDown);
