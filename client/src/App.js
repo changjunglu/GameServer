@@ -241,6 +241,7 @@ function App() {
   }, [currentRoom]);
 
   // 自動滾動聊天記錄到底部
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (chatMessagesRef.current) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
